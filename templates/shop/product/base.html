@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>{% block title %}My shop{% endblock %}</title>
+    <link href="{% static "css/base.css" %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+</head>
+<body>
+    <div id="header">
+        <a href="/" class="logo">Mutual Funds Alerts</a>
+    </div>
+    <div id="subheader">
+        <div class="cart">
+            {% with total_items=cart|length %}
+                {% if cart|length > 0 %}
+                    Your cart:
+                    <a href="{% url "cart:cart_detail" %}">
+                        {{ total_items }} item{{ total_items|pluralize }}, ${{ cart.get_total_price }}
+                    </a>
+                {% else %}
+                    Your cart is empty.
+                {% endif %}
+            {% endwith %}
+        </div>
+    </div>
+    <div id="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+</html>
